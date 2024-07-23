@@ -4,11 +4,13 @@ import com.example.Blog.dto.LoginForm;
 import com.example.Blog.dto.SignupForm;
 import com.example.Blog.entity.Users;
 import com.example.Blog.repository.UsersRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
+@Slf4j
 public class UserController {
     @Autowired
     private UsersRepository usersRepository;
@@ -20,13 +22,13 @@ public class UserController {
     }
     @PostMapping("/signup")
     public String login(SignupForm form){
-        System.out.println(form.toString());
+        log.info(form.toString());
 
         Users user = form.toEntity();
-        System.out.println(user.toString());
+        log.info(user.toString());
 
         Users saved  = usersRepository.save(user);
-        System.out.println(saved.toString());
+        log.info(saved.toString());
         return  "";
     }
 }

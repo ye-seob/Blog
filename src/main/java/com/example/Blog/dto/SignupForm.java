@@ -1,5 +1,7 @@
 package com.example.Blog.dto;
 
+import com.example.Blog.entity.Users;
+
 public class SignupForm {
     private String name;
     private String userId;
@@ -18,5 +20,9 @@ public class SignupForm {
                 ", userId='" + userId + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    public Users toEntity() {
+        return  new Users(null,name, userId,password);
     }
 }

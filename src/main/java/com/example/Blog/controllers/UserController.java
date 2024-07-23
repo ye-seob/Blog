@@ -1,15 +1,32 @@
 package com.example.Blog.controllers;
 
 import com.example.Blog.dto.LoginForm;
+import com.example.Blog.dto.SignupForm;
+import com.example.Blog.entity.Users;
+import com.example.Blog.repository.UsersRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class UserController {
+    @Autowired
+    private UsersRepository usersRepository;
 
     @PostMapping("/login")
     public String login(LoginForm form){
         System.out.println(form.toString());
+        return  "";
+    }
+    @PostMapping("/signup")
+    public String login(SignupForm form){
+        System.out.println(form.toString());
+
+        Users user = form.toEntity();
+        System.out.println(user.toString());
+
+        Users saved  = usersRepository.save(user);
+        System.out.println(saved.toString());
         return  "";
     }
 }

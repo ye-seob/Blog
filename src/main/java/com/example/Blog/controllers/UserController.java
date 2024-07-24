@@ -1,34 +1,34 @@
 package com.example.Blog.controllers;
 
-import com.example.Blog.dto.LoginForm;
-import com.example.Blog.dto.SignupForm;
-import com.example.Blog.entity.Users;
-import com.example.Blog.repository.UsersRepository;
+import com.example.Blog.dto.LoginDTO;
+import com.example.Blog.dto.SignupDTO;
+import com.example.Blog.repository.UserRepository;
+import com.example.Blog.service.SignupServiece;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @Slf4j
 public class UserController {
     @Autowired
-    private UsersRepository usersRepository;
+    private UserRepository userRepository;
+
+    @Autowired
+    private SignupServiece signupService;
 
     @PostMapping("/login")
-    public String login(LoginForm form){
-        System.out.println(form.toString());
+    public String login(@RequestBody LoginDTO loginDTO){
+        log.info(loginDTO.toString());
         return  "";
     }
     @PostMapping("/signup")
-    public String login(SignupForm form){
-        log.info(form.toString());
+    public String signup( SignupDTO signupDTO){
+        log.info( signupDTO.toString());
 
-        Users user = form.toEntity();
-        log.info(user.toString());
-
-        Users saved  = usersRepository.save(user);
-        log.info(saved.toString());
-        return  "";
+        signupService.signup(signupDTO);
+        return "redirect:/login";
     }
 }
